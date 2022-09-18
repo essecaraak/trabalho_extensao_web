@@ -39,7 +39,8 @@
         }
         
         $campus=$_POST['campus'];
-        $curso=$_POST['curso'];
+        $departamento=$_POST['departamento'];
+        $instituto=$_POST['instituto'];
         $senha=trim(filter_input(INPUT_POST,'senha',FILTER_SANITIZE_SPECIAL_CHARS));
         if(empty($senha)){
             $senhaerr="senha precisa ser preenchida";
@@ -48,7 +49,7 @@
             $senhaerr="senhas precisam ser iguais";
         }
         if($err==0){
-        $sql="INSERT INTO usuario VALUES ('$nome','$cpf','$matricula','$rg','$email','$senha','$campus','aluno','$curso',NULL,NULL)";
+        $sql="INSERT INTO usuario VALUES ('$nome','$cpf','$matricula','$rg','$email','$senha','$campus','profe',NULL,'$instituto','$departamento')";
         if(mysqli_query($conn,$sql)){ header("location:login.php");}
         }
     }
@@ -56,13 +57,13 @@
     mysqli_close($conn);
 ?>
 <!DOCTYPE html>
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="css/cadastro-aluno-prof.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/cadastro-prof.css">
     <link rel="stylesheet" href="css/common.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -85,11 +86,11 @@
     </header>
 
     <div class="title">
-        <h1>CADASTRE-SE COMO ALUNO</h1>
+        <h1>CADASTRE-SE COMO PROFESSOR</h1>
     </div>
 
     <section class="form">
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+        <form method="POST">
             <div class="form-area">
                 <div class="linha-1">
                     <label for="nome">Nome Completo</label>
@@ -107,22 +108,22 @@
                     <p><?php echo $rgerr?></p>
 
                     <label class="torto" for="matricula">Matrícula</label>
-                    <input class="ultimo" type="text" name="matricula" id="matricula" maxlength="11" >
-                    <p><?php echo $matriculaerr?></p> 
+                    <input class="ultimo" type="text" name="matricula" id="matricula" maxlength="11">
+                    <p><?php echo $matriculaerr?></p>
                 </div>
 
                 <div class="colunas">
                     <div class="coluna-1">
                         <div class="linha-3">
                             <label for="email">E-mail</label>
-                            <input type="email" name="email" id="email" maxlength="40">  
+                            <input type="email" name="email" id="email" maxlength="11">   
                             <p><?php echo $emailerr?></p>  
                         </div>
                         
                         <div class="linha-4">
                             <label for="campus">Campus</label>
 
-                            <label for="curso">Curso</label>
+                            <label for="instituto">Instituto</label>
 
                             <select name="campus" id="campus">
                                 <option value="seropedica">SEROPÉDICA</option>
@@ -130,13 +131,20 @@
                                 <option value="tres-rios">TRÊS RIOS</option>
                             </select>
 
-                            <select name="curso" id="curso">
-                                <option value="ADMINISTRAÇÃO ">ADMINISTRAÇÃO - 45</option>
-                                <option value="ENGENHARIA DE ALIMENTOS">ENGENHARIA DE ALIMENTOS - 21</option>
-                                <option value="PSICOLOGIA ">PSICOLOGIA - 38</option>
-                                <option value="SISTEMAS DE INFORMAÇÃO">SISTEMAS DE INFORMAÇÃO - 39</option>
-                            </select>    
-                        </div>                 
+                            <select name="instituto" id="instituto">
+                                <option value="ice">ICE - INSTITUTO DE CIÊNCIAS EXATAS</option>
+                                <option value="ichs">ICHS - INSTITUTO DE CIÊNCIAS HUMANAS E SOCIAIS</option>
+                                <option value="ie">IE - INSTITUTO DE EDUCAÇÃO</option>
+                            </select>   
+                        </div>
+                        
+                        <div class="linha-5">
+                            <label for="departamento">Departamento</label>
+                            <select name="departamento" id="departamento">
+                                <option value="decomp">DECOMP - DEPARTAMENTO DE COMPUTAÇÃO</option>
+                                <option value="demat">DEMAT - DEPARTAMENTO DE MATEMÁTICA</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="coluna-2">
@@ -152,12 +160,11 @@
                             <p><?php echo $senhaerr?></p>
                         </div>
                     </div>    
-                </div>    
+                </div>
+                <input type="submit" name="CADASTRAR"  class="botao-azul botao" href="prof-perfil-semprojeto.html">
             </div>
-            <input type="submit" name="CADASTRAR"  class="botao-verde botao" href="aluno-perfil-semprojeto.html">
         </form>
 
-        
         
     </section>
 
